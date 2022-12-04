@@ -1,78 +1,45 @@
 <div>
   <div>
     <h1>
-      Post #<%= @the_post.id %> details
+      <%= @the_post.title %>
     </h1>
 
     <div>
-      <div>
-        <a href="/posts">
-          Go back
-        </a>
-      </div>
-
-      <div>
-        <a href="/delete_post/<%= @the_post.id %>">
-          Delete post
-        </a>
-      </div>
+      Posted by: <a href="<%= @the_post.author.facebook_account %>" target="_blank"><%= @the_post.author.username %></a>
+      <%= time_ago_in_words(@the_post.created_at) %> ago
     </div>
 
-    <dl>
-      <dt>
-        Author
-      </dt>
-      <dd>
-        <%= @the_post.author_id %>
-      </dd>
+    <div>
+      Last updated: <%= time_ago_in_words(@the_post.updated_at) %> ago
+    </div>
 
-      <dt>
-        Title
-      </dt>
-      <dd>
-        <%= @the_post.title %>
-      </dd>
+    <br>
 
-      <dt>
-        Description
-      </dt>
-      <dd>
-        <%= @the_post.description %>
-      </dd>
+    <div>
+      Description
+    </div>
+    <div>
+      <%= @the_post.description %>
+    </div>
 
-      <dt>
-        Active status
-      </dt>
-      <dd>
-        <%= @the_post.active_status %>
-      </dd>
+    <br>
 
-      <dt>
-        Category
-      </dt>
-      <dd>
-        <%= @the_post.category %>
-      </dd>
+    <div>
+      Posted under: <a href=""><%= @the_post.category %></a> 
+      | <a href="/save_post/<%= @the_post.id %>">Save this Post</a>
+    </div>
 
-      <dt>
-        Created at
-      </dt>
-      <dd>
-        <%= time_ago_in_words(@the_post.created_at) %> ago
-      </dd>
+    <br>
 
-      <dt>
-        Updated at
-      </dt>
-      <dd>
-        <%= time_ago_in_words(@the_post.updated_at) %> ago
-      </dd>
-    </dl>
+    <div>
+      <a href="/posts">Go back</a>
+    </div>
   </div>
 </div>
 
 <hr>
 
+<% if @the_post.author.id == session.fetch(:user_id) %>
 
 <div>
   <div>
@@ -82,11 +49,7 @@
 
     <form action="/modify_post/<%= @the_post.id %>"  method="post" >
       <div>
-        <label for="author_id_box">
-          Author
-        </label>
-
-        <input type="text" id="author_id_box" name="query_author_id" value="<%= @the_post.author_id %>">
+        <input type="hidden" id="author_id_box" name="query_author_id" value="<%= @the_post.author_id %>">
       </div>
 
       <div>
@@ -114,6 +77,14 @@
       </div>
 
       <div>
+          <select name="query_category">
+            <% Post.all.order(:title).each do |a_movie| %>
+              <option value="<%= a_movie.id %>">
+                <%= a_movie.title %>
+              </option>
+            <% end %>
+          </select>
+
         <label for="category_box">
           Category
         </label>
@@ -125,7 +96,15 @@
         Update post
       </button>
     </form>
+
+    <br>
+
+    <div>
+      <a href="/delete_post/<%= @the_post.id %>">
+        Delete post
+      </a>
+    </div>
   </div>
 </div>
 
-<hr>
+<% end %>

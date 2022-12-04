@@ -45,7 +45,7 @@ class PostsController < ApplicationController
 
     if the_post.valid?
       the_post.save
-      redirect_to("/posts/#{the_post.id}", { :notice => "Post updated successfully."} )
+      redirect_to("/posts/#{the_post.id}", { :notice => "Post updated successfully." })
     else
       redirect_to("/posts/#{the_post.id}", { :alert => the_post.errors.full_messages.to_sentence })
     end
@@ -57,6 +57,13 @@ class PostsController < ApplicationController
 
     the_post.destroy
 
-    redirect_to("/posts", { :notice => "Post deleted successfully."} )
+    redirect_to("/posts", { :notice => "Post deleted successfully." })
+  end
+
+  def show_my_posts
+    the_user_id = session.fetch(:user_id)
+    @my_posts = Post.where(:author_id => the_user_id)
+
+    render({ :template => "posts/my_posts.html.erb" })
   end
 end

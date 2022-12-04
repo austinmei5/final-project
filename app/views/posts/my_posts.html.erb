@@ -1,7 +1,7 @@
 <div>
   <div>
     <h1>
-      List of all posts
+      My Posts
     </h1>
   </div>
 </div>
@@ -14,21 +14,13 @@
       Add a new post
     </h2>
     <!--
-    <form action="/insert_post" method="post">
+    <form action="/insert_listing" method="post">
       <div>
-        <label for="author_id_box">
-          Author
+        <label for="user_id_box">
+          User
         </label>
 
-        <input type="text" id="author_id_box" name="query_author_id">
-      </div>
-
-      <div>
-        <label for="title_box">
-          Title
-        </label>
-
-        <input type="text" id="title_box" name="query_title">
+        <input type="text" id="user_id_box" name="query_user_id">
       </div>
 
       <div>
@@ -36,7 +28,7 @@
           Description
         </label>
 
-        <input type="text" id="description_box" name="query_description">
+        <textarea id="description_box" name="query_description" rows="3"></textarea>
       </div>
 
       <div>
@@ -45,19 +37,10 @@
         <label for="active_status_box">Active status</label>
       </div>
 
-      <div>
-        <label for="category_box">
-          Category
-        </label>
-
-        <input type="text" id="category_box" name="query_category">
-      </div>
-
       <button>
-        Create post
+        Create listing
       </button>
     </form>
-
     -->
   </div>
 </div>
@@ -80,18 +63,18 @@
         </th>
 
         <th>
-          Created at
+          Created
         </th>
 
         <th>
-          Updated at
+          Updated
         </th>
 
         <th>
         </th>
       </tr>
 
-      <% @list_of_posts.each do |a_post| %>
+      <% @my_posts.each do |a_post| %>
       <tr>
         <td>
           <%= a_post.category %>
@@ -102,9 +85,15 @@
         </td>
 
         <td>
-          <%= a_post.author.username %>
+          <%= a_post.user.username %>
         </td>
 
+        <!--
+        <td>
+          <%= a_post.active_status %>
+        </td>
+        -->
+        
         <td>
           <%= time_ago_in_words(a_post.created_at) %> ago
         </td>
