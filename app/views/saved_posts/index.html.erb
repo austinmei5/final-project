@@ -1,0 +1,102 @@
+<div>
+  <div>
+    <h1>
+      List of all saved posts
+    </h1>
+  </div>
+</div>
+
+<hr>
+
+<div>
+  <div>
+    <h2>
+      Add a new saved post
+    </h2>
+
+    <form action="/insert_saved_post" method="post">
+      <div>
+        <label for="user_id_box">
+          User
+        </label>
+
+        <input type="text" id="user_id_box" name="query_user_id">
+      </div>
+
+      <div>
+        <label for="post_id_box">
+          Post
+        </label>
+
+        <input type="text" id="post_id_box" name="query_post_id">
+      </div>
+
+      <button>
+        Create saved post
+      </button>
+    </form>
+  </div>
+</div>
+
+<hr>
+<div>
+  <div>
+    <table border="1">
+      <tr>
+        <th>
+          ID
+        </th>
+
+        <th>
+          User
+        </th>
+
+        <th>
+          Post
+        </th>
+
+        <th>
+          Created at
+        </th>
+
+        <th>
+          Updated at
+        </th>
+
+        <th>
+        </th>
+      </tr>
+
+      <% @list_of_saved_posts.each do |a_saved_post| %>
+      <tr>
+        <td>
+          <%= a_saved_post.id %>
+        </td>
+
+        <td>
+          <%= a_saved_post.user_id %>
+        </td>
+
+        <td>
+          <%= a_saved_post.post_id %>
+        </td>
+
+        <td>
+          <%= time_ago_in_words(a_saved_post.created_at) %> ago
+        </td>
+        <td>
+          <%= time_ago_in_words(a_saved_post.updated_at) %> ago
+        </td>
+
+        <td>
+          <a href="/saved_posts/<%= a_saved_post.id %>">
+            Show details
+          </a>
+        </td>
+      </tr>
+      <% end %>
+    </table>
+  </div>
+</div>
+
+<hr>
