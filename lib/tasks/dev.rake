@@ -14,7 +14,7 @@ task({ :sample_data => :environment }) do
     user.save
   end
 
-  categories = ["Apartments", "Roommates", "Books", "Classes", "For Sale", "Misc"]
+  categories = ["Apartments", "Roommates", "Books", "Classes", "For Sale", "Other"]
 
   25.times do
     post = Post.new

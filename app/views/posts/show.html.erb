@@ -78,9 +78,9 @@
 
       <div>
           <select name="query_category">
-            <% Post.all.order(:title).each do |a_movie| %>
-              <option value="<%= a_movie.id %>">
-                <%= a_movie.title %>
+            <% @categories.each do |a_category| %>
+              <option value="<%= a_category %>">
+                <%= a_category %>
               </option>
             <% end %>
           </select>
