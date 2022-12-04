@@ -2,7 +2,7 @@ desc "Hydrate the database with some sample data to look at so that developing i
 task({ :sample_data => :environment }) do
   require "faker"
 
-  User.destroy_all
+  # User.destroy_all
   Post.destroy_all
 
   25.times do
@@ -16,6 +16,9 @@ task({ :sample_data => :environment }) do
 
   categories = ["Apartments", "Roommates", "Books", "Classes", "For Sale", "Other"]
 
+  # categories.each do |a_category|
+  #   cat = Category
+
   25.times do
     post = Post.new
     post.author_id = User.all.sample.id
@@ -27,5 +30,5 @@ task({ :sample_data => :environment }) do
   end
 
   p "Added #{User.count} Users"
-  p "added #{Post.count} Listings"
+  # p "added #{Post.count} Listings"
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_12_04_065042) do
+ActiveRecord::Schema.define(version: 2022_12_04_184156) do
 
   create_table "comments", force: :cascade do |t|
     t.integer "commenter_id"
@@ -25,7 +25,7 @@ ActiveRecord::Schema.define(version: 2022_12_04_065042) do
     t.string "title"
     t.string "description"
     t.boolean "active_status"
-    t.string "category"
+    t.integer "category_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
