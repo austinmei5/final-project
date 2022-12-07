@@ -1,7 +1,7 @@
 <div>
   <div>
     <h1>
-      My Posts
+      <%= @current_user.username %>'s posts
     </h1>
   </div>
 </div>
@@ -11,7 +11,7 @@
 <div>
   <div>
     <h2>
-      Add a new post
+      <a href="/create_post">Create a new post</a>
     </h2>
     <!--
     <form action="/insert_listing" method="post">
@@ -74,10 +74,10 @@
         </th>
       </tr>
 
-      <% @my_posts.each do |a_post| %>
+      <% @my_posts.order(:created_at => :desc).each do |a_post| %>
       <tr>
         <td>
-          <%= a_post.category %>
+          <%= a_post.category.name %>
         </td>
 
         <td>
@@ -85,7 +85,7 @@
         </td>
 
         <td>
-          <%= a_post.user.username %>
+          <%= a_post.author.username %>
         </td>
 
         <!--

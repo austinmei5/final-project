@@ -14,7 +14,13 @@ class PostsController < ApplicationController
 
     @the_post = matching_posts.at(0)
 
+    @list_of_comments = Comment.where(:post_id => the_id).order(:created_at => :desc)
+
     render({ :template => "posts/show.html.erb" })
+  end
+
+  def create_landing_page
+    render({ :template => "posts/create_post.html.erb" })
   end
 
   def create
@@ -22,14 +28,14 @@ class PostsController < ApplicationController
     the_post.author_id = params.fetch("query_author_id")
     the_post.title = params.fetch("query_title")
     the_post.description = params.fetch("query_description")
-    the_post.active_status = params.fetch("query_active_status", false)
-    the_post.category = params.fetch("query_category")
+    the_post.active_status = true
+    the_post.category_id = params.fetch("query_category")
 
     if the_post.valid?
       the_post.save
-      redirect_to("/posts", { :notice => "Post created successfully." })
+      redirect_to("/posts/#{the_post.id}", { :notice => "Post created successfully." })
     else
-      redirect_to("/posts", { :alert => the_post.errors.full_messages.to_sentence })
+      redirect_to("/create_post", { :alert => the_post.errors.full_messages.to_sentence })
     end
   end
 
@@ -41,7 +47,7 @@ class PostsController < ApplicationController
     the_post.title = params.fetch("query_title")
     the_post.description = params.fetch("query_description")
     the_post.active_status = params.fetch("query_active_status", false)
-    the_post.category = params.fetch("query_category")
+    the_post.category_id = params.fetch("query_category")
 
     if the_post.valid?
       the_post.save

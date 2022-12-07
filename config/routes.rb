@@ -3,19 +3,19 @@ Rails.application.routes.draw do
   # Routes for the Category resource:
 
   # CREATE
-  post("/insert_category", { :controller => "categories", :action => "create" })
-          
+  # post("/insert_category", { :controller => "categories", :action => "create" })
+
   # READ
   get("/categories", { :controller => "categories", :action => "index" })
-  
-  get("/categories/:path_id", { :controller => "categories", :action => "show" })
-  
+
+  # get("/categories/:path_id", { :controller => "categories", :action => "show" })
+
   # UPDATE
-  
-  post("/modify_category/:path_id", { :controller => "categories", :action => "update" })
-  
+
+  # post("/modify_category/:path_id", { :controller => "categories", :action => "update" })
+
   # DELETE
-  get("/delete_category/:path_id", { :controller => "categories", :action => "destroy" })
+  # get("/delete_category/:path_id", { :controller => "categories", :action => "destroy" })
 
   #------------------------------
 
@@ -24,8 +24,11 @@ Rails.application.routes.draw do
 
   # Routes for the Saved post resource:
 
+  # ADD A SAVED POST
+  get("/save_post/:path_id", { :controller => "saved_posts", :action => "create" })
+
   # CREATE
-  post("/insert_saved_post", { :controller => "saved_posts", :action => "create" })
+  # post("/insert_saved_post", { :controller => "saved_posts", :action => "create" })
 
   # READ
   get("/saved_posts", { :controller => "saved_posts", :action => "index" })
@@ -34,7 +37,7 @@ Rails.application.routes.draw do
 
   # UPDATE
 
-  post("/modify_saved_post/:path_id", { :controller => "saved_posts", :action => "update" })
+  # post("/modify_saved_post/:path_id", { :controller => "saved_posts", :action => "update" })
 
   # DELETE
   get("/delete_saved_post/:path_id", { :controller => "saved_posts", :action => "destroy" })
@@ -63,7 +66,9 @@ Rails.application.routes.draw do
   # Routes for the Post resource:
 
   # CREATE
-  post("/insert_post", { :controller => "posts", :action => "create" })
+  get("/create_post", { :controller => "posts", :action => "create_landing_page" })
+
+  post("/create", { :controller => "posts", :action => "create" })
 
   # READ
   get("/posts", { :controller => "posts", :action => "index" })

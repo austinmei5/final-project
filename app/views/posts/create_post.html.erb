@@ -1,0 +1,52 @@
+<h1>
+  Create a new post
+</h1>
+
+<form action="/create" method="post" >
+  <div>
+    <input type="hidden" id="author_id_box" name="query_author_id" value="<%= @current_user.id %>">
+  </div>
+
+  <div>
+    <label for="title_box">
+      Title:
+    </label>
+
+    <br>
+
+    <input type="text" id="title_box" name="query_title" placeholder="Title your post here">
+  </div>
+  
+  <br> 
+
+  <div>
+    <label for="description_box">
+      Description:
+    </label>
+    <br>
+
+    <textarea rows = "5" cols = "60" name = "query_description" placeholder="Describe what you are looking for here"></textarea>
+  </div>
+
+  <br>
+
+  <div>
+    <label for="category_box">
+      Category:
+    </label>
+
+    <select name="query_category">
+      <% Category.all.each do |a_cat| %>
+        <option value="<%= a_cat.id %>">
+          <%= a_cat.name %>
+        </option>
+      <% end %>
+    </select>
+  </div>
+
+  <br>
+
+  <button>
+    Create post
+  </button>
+</form>

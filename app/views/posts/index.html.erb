@@ -11,7 +11,7 @@
 <div>
   <div>
     <h2>
-      Add a new post
+      <a href="/create_post">Create a new post</a>
     </h2>
     <!--
     <form action="/insert_post" method="post">
@@ -80,29 +80,30 @@
         </th>
 
         <th>
-          Created at
+          Created
         </th>
 
         <th>
-          Updated at
-        </th>
-
-        <th>
+          Updated
         </th>
       </tr>
 
-      <% @list_of_posts.each do |a_post| %>
+      <% @list_of_posts.where(:active_status => :true).order(:created_at => :desc).each do |a_post| %>
       <tr>
         <td>
-          <%= a_post.category %>
+          <%= a_post.category.name %>
         </td>
 
         <td>
-          <%= a_post.title %>
+          <a href="/posts/<%= a_post.id %>">
+            <%= a_post.title %>
+          </a>
         </td>
 
         <td>
-          <%= a_post.author.username %>
+          <a href="<%= a_post.author.facebook_account %>" target="_blank">
+            <%= a_post.author.username %>
+          </a>
         </td>
 
         <td>
@@ -110,12 +111,6 @@
         </td>
         <td>
           <%= time_ago_in_words(a_post.updated_at) %> ago
-        </td>
-
-        <td>
-          <a href="/posts/<%= a_post.id %>">
-            Show details
-          </a>
         </td>
       </tr>
       <% end %>

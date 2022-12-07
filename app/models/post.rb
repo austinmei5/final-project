@@ -17,4 +17,10 @@ class Post < ApplicationRecord
   has_many(:comments, { :class_name => "Comment", :foreign_key => "post_id", :dependent => :destroy })
 
   has_many(:saved_posts, { :class_name => "SavedPost", :foreign_key => "post_id", :dependent => :destroy })
+
+  belongs_to(:category, { :required => true, :class_name => "Category", :foreign_key => "category_id" })
+
+  validates(:title, :presence => true)
+  
+  validates(:description, :presence => true)
 end

@@ -3,7 +3,7 @@ task({ :sample_data => :environment }) do
   require "faker"
 
   # User.destroy_all
-  Post.destroy_all
+  # Post.destroy_all
 
   25.times do
     user = User.new
@@ -16,19 +16,22 @@ task({ :sample_data => :environment }) do
 
   categories = ["Apartments", "Roommates", "Books", "Classes", "For Sale", "Other"]
 
-  # categories.each do |a_category|
-  #   cat = Category
+  categories.each do |a_category|
+    cat = Category.new
+    cat.name = a_category
+    cat.save
+  end
 
   25.times do
     post = Post.new
     post.author_id = User.all.sample.id
     post.title = "Sample Title"
     post.description = "Sample Text"
-    post.category = categories.sample
+    post.category_id = Category.all.sample.id
     post.active_status = true
     post.save
   end
 
   p "Added #{User.count} Users"
-  # p "added #{Post.count} Listings"
+  p "added #{Post.count} Listings"
 end
