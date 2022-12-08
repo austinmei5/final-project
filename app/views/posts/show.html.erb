@@ -26,18 +26,21 @@
 
     <div>
       Posted under: <a href=""><%= @the_post.category.name %></a> 
-      |  
-      <% if SavedPost.where(:post_id => @the_post.id, :user_id => session.fetch(:user_id)).at(0) == nil %>
-        <a href="/save_post/<%= @the_post.id %>">Save this Post</a>
-      <% else %>
-        <a href="/delete_saved_post/<%= @the_post.id %>">Unsave this Post</a>
-      <% end %>
     </div>
 
     <br>
 
     <div>
       <a href="/posts">Go back</a>
+      |
+      <% if SavedPost.where(:post_id => @the_post.id, :user_id => session.fetch(:user_id)).at(0) == nil %>
+        <a href="/save_post/<%= @the_post.id %>">Save this post</a>
+      <% else %>
+        <a href="/delete_saved_post/<%= @the_post.id %>">Unsave this post</a>
+      <% end %>
+      <% if @the_post.author.id == session.fetch(:user_id) %>
+        | <a href="/edit_post/<%= @the_post.id %>">Edit this post</a>
+      <% end %>
     </div>
   </div>
 </div>
@@ -136,26 +139,26 @@
   Comments
 </h2>
 
-<table>
-  <tr>
-    <th>Commenter</th>
-    <th>Comment</th>
-    <th>Posted</th>
-  </tr>
-
+<dl>
   <% @list_of_comments.each do |a_comment| %>
-    <td>
-      <%= a_comment.commenter %>
-    </td>
+    <dt>
+      <a href="<%=a_comment.commenter.facebook_account%>" target="_blank"><%= a_comment.commenter.username %></a>
+      posted <%= time_ago_in_words(a_comment.created_at) %> ago:
 
-    <td>
-      <%= a_comment.commenter %>
-    </td>
+      <% if session.fetch(:user_id) == @the_post.author.id or session.fetch(:user_id) == a_comment.commenter.id %>
+        <a href="/delete_comment/<%= a_comment.id %>">(Delete Comment)</a>
+      <% end %>
+    <dt>
 
-    <td>
-    </td>
+    <dd>
+      "<%= a_comment.comment_text %>"
+    </dd>
+
+    <hr>
   <% end %> 
-</table>
+</dl>
+
+<% if @current_user != nil %>
 
  <form action="/insert_comment", method="post" >
     <div>
@@ -175,6 +178,12 @@
       <textarea rows = "5" cols = "60" name = "query_comment_text" placeholder="Leave a comment here"></textarea>
     </div>
 
+    <br>
+
     <button>Post Comment</button>
 
   </form>
+
+<% else %>
+  <div>Please sign in to leave a comment</div>
+<% end %>

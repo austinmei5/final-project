@@ -1,8 +1,8 @@
 <h1>
-  Create a new post
+  Edit your post
 </h1>
 
-<form action="/create" method="post" >
+<form action="/modify_post/<%= @the_post.id %>" method="post" >
   <div>
     <input type="hidden" id="author_id_box" name="query_author_id" value="<%= @current_user.id %>">
   </div>
@@ -13,7 +13,8 @@
     </label>
 
     <br>
-    <textarea rows = "1" cols = "60" name = "query_title" placeholder="Title your post here"></textarea>
+
+    <textarea rows = "1" cols = "60" name = "query_title"><%= @the_post.title %></textarea>
   </div>
   
   <br> 
@@ -24,7 +25,7 @@
     </label>
     <br>
 
-    <textarea rows = "5" cols = "60" name = "query_description" placeholder="Describe what you are looking for here"></textarea>
+    <textarea rows = "5" cols = "60" name = "query_description"><%= @the_post.description %></textarea>
   </div>
 
   <br>
@@ -45,7 +46,26 @@
 
   <br>
 
+  <div>
+    <label for="active_status_box">
+        Is this post still active?
+    </label>
+
+    <input type="checkbox" id="active_status_box" name="query_active_status" value="1" <%= "checked" if @the_post.active_status %>>
+  </div>
+
+  <br>
+
   <button>
-    Create post
+    Update post
   </button>
+
 </form>
+
+<br>
+<hr>
+<br>
+
+<a href="/delete_post/<%= @the_post.id %>" >
+  Delete post permanently
+</a>

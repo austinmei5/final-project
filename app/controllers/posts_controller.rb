@@ -61,9 +61,12 @@ class PostsController < ApplicationController
     the_id = params.fetch("path_id")
     the_post = Post.where({ :id => the_id }).at(0)
 
-    the_post.destroy
-
-    redirect_to("/posts", { :notice => "Post deleted successfully." })
+    if session.fetch(:user_id) == the_post.author.id
+      the_post.destroy
+      redirect_to("/posts", { :notice => "Post deleted successfully." })
+    else
+      redirect_to("/", { :alert => "You do not have permission to do this." })
+    end
   end
 
   def show_my_posts
@@ -71,5 +74,16 @@ class PostsController < ApplicationController
     @my_posts = Post.where(:author_id => the_user_id)
 
     render({ :template => "posts/my_posts.html.erb" })
+  end
+
+  def edit
+    the_id = params.fetch("path_id")
+    @the_post = Post.where({ :id => the_id }).at(0)
+
+    if session.fetch(:user_id) == @the_post.author.id
+      render({ :template => "posts/edit_post.html.erb" })
+    else
+      redirect_to("/", { :alert => "You do not have permission to do this." })
+    end
   end
 end

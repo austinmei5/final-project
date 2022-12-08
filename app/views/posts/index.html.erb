@@ -10,9 +10,15 @@
 
 <div>
   <div>
-    <h2>
-      <a href="/create_post">Create a new post</a>
-    </h2>
+    <% if @current_user != nil %>
+      <h2>
+        <a href="/create_post">Create a new post</a>
+      </h2>
+    <% else %>
+      <h2>
+        Please sign in to create a post
+      </h2>
+    <% end %>
     <!--
     <form action="/insert_post" method="post">
       <div>

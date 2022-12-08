@@ -25,9 +25,9 @@ class CommentsController < ApplicationController
 
     if the_comment.valid?
       the_comment.save
-      redirect_to("/comments", { :notice => "Comment created successfully." })
+      redirect_to("/posts/#{the_comment.post_id}", { :notice => "Comment created successfully." })
     else
-      redirect_to("/comments", { :alert => the_comment.errors.full_messages.to_sentence })
+      redirect_to("/posts/#{the_comment.post_id}", { :alert => the_comment.errors.full_messages.to_sentence })
     end
   end
 
@@ -50,9 +50,13 @@ class CommentsController < ApplicationController
   def destroy
     the_id = params.fetch("path_id")
     the_comment = Comment.where({ :id => the_id }).at(0)
+    the_post_id = the_comment.post.id
 
-    the_comment.destroy
-
-    redirect_to("/comments", { :notice => "Comment deleted successfully."} )
+      if session.fetch(:user_id) == the_comment.commenter.id
+        the_comment.destroy
+        redirect_to("/posts/#{the_post_id}", { :notice => "Comment deleted successfully."} )
+      else
+        redirect_to("/", { :alert => "You do not have permission to do this."} )
+      end
   end
 end

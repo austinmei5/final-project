@@ -15,7 +15,7 @@ class User < ApplicationRecord
   validates :email, :uniqueness => { :case_sensitive => false }
   validates :email, :presence => true
   validates(:username, { :uniqueness => true })
-  validates(:facebook_account, { :uniqueness => { :message => "this Facebook account is already registered" } })
+  # validates(:facebook_account, { :uniqueness => { :message => "this Facebook account is already registered" } })
   has_secure_password
 
   has_many(:posts, { :class_name => "Post", :foreign_key => "author_id", :dependent => :destroy })

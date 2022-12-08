@@ -10,44 +10,6 @@
 
 <div>
   <div>
-    <h2>
-      <a href="/create_post">Create a new post</a>
-    </h2>
-    <!--
-    <form action="/insert_listing" method="post">
-      <div>
-        <label for="user_id_box">
-          User
-        </label>
-
-        <input type="text" id="user_id_box" name="query_user_id">
-      </div>
-
-      <div>
-        <label for="description_box">
-          Description
-        </label>
-
-        <textarea id="description_box" name="query_description" rows="3"></textarea>
-      </div>
-
-      <div>
-        <input type="checkbox" id="active_status_box" name="query_active_status" value="1">
-
-        <label for="active_status_box">Active status</label>
-      </div>
-
-      <button>
-        Create listing
-      </button>
-    </form>
-    -->
-  </div>
-</div>
-
-<hr>
-<div>
-  <div>
     <table border="1">
       <tr>
         <th>
@@ -69,9 +31,6 @@
         <th>
           Updated
         </th>
-
-        <th>
-        </th>
       </tr>
 
       <% @my_posts.order(:created_at => :desc).each do |a_post| %>
@@ -81,30 +40,22 @@
         </td>
 
         <td>
-          <%= a_post.title %>
+          <a href="/posts/<%= a_post.id %>">
+            <%= a_post.title %>
+          </a>
         </td>
 
         <td>
-          <%= a_post.author.username %>
+          <a href="<%= a_post.author.facebook_account %>" target="_blank">
+            <%= a_post.author.username %>
+          </a>
         </td>
 
-        <!--
-        <td>
-          <%= a_post.active_status %>
-        </td>
-        -->
-        
         <td>
           <%= time_ago_in_words(a_post.created_at) %> ago
         </td>
         <td>
           <%= time_ago_in_words(a_post.updated_at) %> ago
-        </td>
-
-        <td>
-          <a href="/posts/<%= a_post.id %>">
-            Show details
-          </a>
         </td>
       </tr>
       <% end %>

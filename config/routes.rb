@@ -56,7 +56,7 @@ Rails.application.routes.draw do
 
   # UPDATE
 
-  post("/modify_comment/:path_id", { :controller => "comments", :action => "update" })
+  # post("/modify_comment/:path_id", { :controller => "comments", :action => "update" })
 
   # DELETE
   get("/delete_comment/:path_id", { :controller => "comments", :action => "destroy" })
@@ -78,6 +78,8 @@ Rails.application.routes.draw do
   get("/my_posts", { :controller => "posts", :action => "show_my_posts" })
 
   # UPDATE
+
+  get("/edit_post/:path_id", { :controller => "posts", :action => "edit" })
 
   post("/modify_post/:path_id", { :controller => "posts", :action => "update" })
 
