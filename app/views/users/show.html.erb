@@ -1,30 +1,19 @@
 <div>
   <div>
     <h1>
-      Marketplace
+      <%= @the_user.username %>'s Profile
     </h1>
-  </div>
-</div>
 
-<hr>
+    <hr>
 
-<div>
-  <div>
-    <% if @current_user != nil %>
-      <h2>
-        <a href="/create_post">Create a new post</a>
-      </h2>
-    <% else %>
-      <h2>
-        Please sign in to create a post
-      </h2>
-    <% end %>
-  </div>
-</div>
+    <h3>
+      Facebook Profile: <a href="<%= @the_user.facebook_account %>" target="_blank"><%= @the_user.facebook_account %></a>
+    </h3>
 
-<hr>
-<div>
-  <div>
+    <h3>
+      Recent Posts:
+    </h3>
+
     <table border="1">
       <tr>
         <th>
@@ -48,7 +37,7 @@
         </th>
       </tr>
 
-      <% @list_of_posts.where(:active_status => :true).order(:created_at => :desc).each do |a_post| %>
+      <% @list_of_users_posts.where(:active_status => :true).order(:created_at => :desc).each do |a_post| %>
       <tr>
         <td>
           <%= a_post.category.name %>
@@ -77,5 +66,3 @@
     </table>
   </div>
 </div>
-
-<hr>
