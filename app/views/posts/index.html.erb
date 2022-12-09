@@ -23,6 +23,7 @@
 </div>
 
 <hr>
+
 <div>
   <div>
     <table border="1">
@@ -48,10 +49,10 @@
         </th>
       </tr>
 
-      <% @list_of_posts.where(:active_status => :true).order(:created_at => :desc).each do |a_post| %>
+      <% @list_of_posts.where(:active_status => :true).each do |a_post| %>
       <tr>
         <td>
-          <%= a_post.category.name %>
+          <a href="/sort/<%= a_post.category.name %>"><%= a_post.category.name %></a>
         </td>
 
         <td>

@@ -5,7 +5,7 @@
     </h1>
 
     <div>
-      Posted by: <a href="<%= @the_post.author.facebook_account %>" target="_blank"><%= @the_post.author.username %></a>
+      Posted by: <a href="/users/<%= @the_post.author.id %>"><%= @the_post.author.username %></a>
       <%= time_ago_in_words(@the_post.created_at) %> ago
     </div>
 
@@ -25,7 +25,7 @@
     <br>
 
     <div>
-      Posted under: <a href=""><%= @the_post.category.name %></a> 
+      Posted under: <a href="/sort/<%= @the_post.category.name %>"><%= @the_post.category.name %></a>
     </div>
 
     <br>
@@ -47,93 +47,6 @@
 
 <br>
 <hr>
-
-<!-- >
- 
-<% if @the_post.author.id == session.fetch(:user_id) %>
-
-<div>
-  <div>
-    <h2>
-      Edit your post:
-    </h2>
-
-    <form action="/modify_post/<%= @the_post.id %>" method="post" >
-      <div>
-        <input type="hidden" id="author_id_box" name="query_author_id" value="<%= @the_post.author_id %>">
-      </div>
-
-      <div>
-        <label for="title_box">
-          Title:
-        </label>
-
-        <br>
-
-        <input type="text" id="title_box" name="query_title" value="<%= @the_post.title %>">
-      </div>
-      
-      <br> 
-
-      <div>
-        <label for="description_box">
-          Description:
-        </label>
-        <br>
-
-        <textarea rows = "5" cols = "60" name = "query_description" value="<%= @the_post.description %>"><%= @the_post.description %></textarea>
-      </div>
-
-      <br>
-
-      <div>
-        <label for="category_box">
-          Category:
-        </label>
-
-        <select name="query_category">
-          <option value="<%= @the_post.category.id %>"><%= @the_post.category.name %></option>
-          <% Category.where.not(:id => @the_post.category.id).each do |a_cat| %>
-            <option value="<%= a_cat.id %>">
-              <%= a_cat.name %>
-            </option>
-          <% end %>
-        </select>
-      </div>
-
-      <br>
-
-      <div>
-        <label for="active_status_box">
-            Is this post still active?
-        </label>
-
-        <input type="checkbox" id="active_status_box" name="query_active_status" value="1" <%= "checked" if @the_post.active_status %>>
-      </div>
-
-      <br>
-
-      <button>
-        Update post
-      </button>
-    </form>
-
-    <br>
-
-    <div>
-      <a href="/delete_post/<%= @the_post.id %>">
-        Delete post
-      </a>
-    </div>
-  </div>
-</div>
-
-<% end %>
-
-
-
-<hr>
--->
 
 <h2>
   Comments

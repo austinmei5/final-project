@@ -7,6 +7,15 @@ class PostsController < ApplicationController
     render({ :template => "posts/index.html.erb" })
   end
 
+  def sort_by
+    sort = params.fetch("path_id")
+
+    the_category = Category.where(:name => sort).at(0).id
+    @list_of_posts = Post.where(:category_id => the_category)
+
+    render({ :template => "posts/sort.html.erb" })
+  end
+
   def show
     the_id = params.fetch("path_id")
 

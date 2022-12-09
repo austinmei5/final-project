@@ -73,6 +73,8 @@ Rails.application.routes.draw do
   # READ
   get("/posts", { :controller => "posts", :action => "index" })
 
+  get("/sort/:path_id", { :controller => "posts", :action => "sort_by" })
+
   get("/posts/:path_id", { :controller => "posts", :action => "show" })
 
   get("/my_posts", { :controller => "posts", :action => "show_my_posts" })
