@@ -47,31 +47,44 @@
         <th>
           Updated
         </th>
+
+        <th>
+          Status
+        </th>
       </tr>
 
-      <% @list_of_saved_posts.order(:created_at => :desc).each do |a_saved_post| %>
+      <% @list_of_posts.order({ :active_status => :desc, :created_at => :desc}).each do |a_post| %>
       <tr>
         <td>
-          <a href="/sort/<%= a_saved_post.post.category.name %>"><%= a_saved_post.post.category.name %></a>
+          <a href="/sort/<%= a_post.category.name %>"><%= a_post.category.name %></a>
         </td>
 
         <td>
-          <a href="/posts/<%= a_saved_post.post.id %>">
-            <%= a_saved_post.post.title %>
+          <a href="/posts/<%= a_post.id %>">
+            <%= a_post.title %>
           </a>
         </td>
 
         <td>
-          <a href="/users/<%= a_saved_post.post.author.id %>">
-            <%= a_saved_post.post.author.username %>
+          <a href="/users/<%= a_post.author.id %>">
+            <%= a_post.author.username %>
           </a>
         </td>
 
         <td>
-          <%= time_ago_in_words(a_saved_post.post.created_at) %> ago
+          <%= time_ago_in_words(a_post.created_at) %> ago
         </td>
+
         <td>
-          <%= time_ago_in_words(a_saved_post.post.updated_at) %> ago
+          <%= time_ago_in_words(a_post.updated_at) %> ago
+        </td>
+
+        <td>
+          <% if a_post.active_status %>
+            Active
+          <% else %>
+            Inactive
+          <% end %>
         </td>
       </tr>
       <% end %>

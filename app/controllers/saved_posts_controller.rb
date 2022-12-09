@@ -2,7 +2,9 @@ class SavedPostsController < ApplicationController
   def index
     matching_saved_posts = SavedPost.all
 
-    @list_of_saved_posts = matching_saved_posts.where(:user_id => session.fetch(:user_id)).order({ :created_at => :desc })
+    list_of_saved_posts = matching_saved_posts.where({ :user_id => session.fetch(:user_id) })
+
+    @list_of_posts = Post.where(id: list_of_saved_posts.map(&:post_id))
 
     render({ :template => "saved_posts/index.html.erb" })
   end

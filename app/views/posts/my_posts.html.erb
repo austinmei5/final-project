@@ -53,7 +53,7 @@
         </th>
       </tr>
 
-      <% @my_posts.order(:created_at => :desc).each do |a_post| %>
+      <% @my_posts.order({ :active_status => :desc, :created_at => :desc}).each do |a_post| %>
       <tr>
         <td>
           <a href="/sort/<%= a_post.category.name %>"><%= a_post.category.name %></a>

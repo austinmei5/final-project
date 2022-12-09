@@ -11,7 +11,7 @@ task({ :sample_data => :environment }) do
   50.times do
     user = User.new
     user.username = Faker::Name.first_name
-    user.email = user.username + "@gmail.com"
+    user.email = (user.username + "@gmail.com").downcase
     user.password = "password"
     user.admin = false
     user.save
@@ -69,7 +69,7 @@ task({ :sample_data => :environment }) do
     post.save
   end
 
-  75.times do 
+  100.times do 
     comment = Comment.new
     comment.commenter_id = User.all.sample.id
     comment.post_id = Post.all.sample.id
