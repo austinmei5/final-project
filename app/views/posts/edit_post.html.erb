@@ -36,7 +36,10 @@
     </label>
 
     <select name="query_category">
-      <% Category.all.each do |a_cat| %>
+      <option value="<%= @the_post.category.id %>">
+        <%= @the_post.category.name %>
+      </option>
+      <% Category.where.not({ :id => @the_post.category.id }).each do |a_cat| %>
         <option value="<%= a_cat.id %>">
           <%= a_cat.name %>
         </option>
